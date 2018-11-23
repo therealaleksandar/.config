@@ -1,0 +1,143 @@
+[colors]
+fg = #222222
+fgcpu = #696969
+bgtime = #dba0bb
+bgcoreinfo = #b7c993
+bgmem = #766FFF
+bgi3 = #a78371
+bgi3f = #c9a593
+bgcpu = #DC7633
+bgtray = #7F8C8D
+alert = #900000
+tp = #00000000
+weather = #F4D03F
+maia = #16A085
+maiafg = #08604F
+inactive = #888888
+white = #FFFFFF	
+
+[bar/example]
+width = 100%
+height = 30
+
+background = ${colors.tp}
+foreground = ${colors.fg}
+
+bottom = false
+
+border-top-color = ${colors.tp}
+border-left-color = ${colors.tp}
+border-right-color = ${colors.tp}
+border-top-size = 0
+border-left-size = 0
+border-right-size = 0
+
+module-margin-left = 0
+module-margin-right = 0
+padding-left = 0
+padding-right = 0
+
+font-0 = Roboto Mono:pixelsize=10;1
+font-1 = RobotoMono Nerd Font:pixelsize=10;1
+font-2 = Font Awesome 5 Free:pixelsize=10;1
+font-3 = Weather Icons:size=12;1
+
+modules-right = cpu memory openweathermap-detailed time backlight volume
+modules-center = xwindow
+modules-left = i3
+
+wm-restack = i3
+
+tray-position = right
+tray-background = ${colors.bgtray}
+
+
+[module/time]
+type = internal/date
+interval = 1
+
+time = "  %b-%d   %H:%M "
+
+format-background = ${colors.bgtime}
+
+label = %time%
+
+
+[module/volume]
+type = internal/volume
+
+format-volume = <ramp-volume> <label-volume>
+format-muted = <label-muted>
+
+ramp-volume-0 = " "
+ramp-volume-1 = " "
+ramp-volume-2 = " "
+
+label-volume = "%percentage%% "
+label-muted = "  %percentage%% "
+label-muted-foreground = ${colors.bgi3f}
+
+format-volume-background = ${colors.bgcoreinfo}
+format-muted-background = ${colors.bgcoreinfo}
+
+
+[module/xwindow]
+type = internal/xwindow
+label-font = 0
+label-foreground = ${colors.bgi3f}
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label = "%percentage%% "
+format-prefix = "  "
+format-background = ${colors.bgcpu}
+
+[module/memory]
+type = internal/memory
+interval = 2
+label = "%percentage_used%% "
+format-prefix = "  "
+format-background = ${colors.bgmem}
+
+[module/openweathermap-detailed]
+type = custom/script
+exec = ~/.config/polybar/openweathermap-detailed.sh
+interval = 600
+label-font = 4
+label-background = ${colors.weather} 
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+pin-workspaces=true
+
+ws-icon-0 = 1;1 
+ws-icon-1 = 2;2 
+ws-icon-2 = 3;3 
+ws-icon-3 = 4;4
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8 
+ws-icon-default = +
+
+label-mode-padding = 0
+label-mode-foreground = ${colors.fg}
+label-mode-background = ${colors.alert}
+
+label-focused = %icon%
+label-focused-background = ${colors.maia}
+label-focused-foreground = ${colors.white}
+label-focused-padding = 2
+
+label-unfocused = %icon%
+label-unfocused-background = ${colors.maiafg}
+label-unfocused-foreground = ${colors.inactive}
+label-unfocused-padding = 2
+
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-foreground = ${colors.white}
+label-urgent-padding = 2
+
