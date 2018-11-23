@@ -56,11 +56,15 @@ tray-background = ${colors.bgtray}
 type = internal/date
 interval = 1
 
-time = "  %b-%d   %H:%M "
+time = "  %H:%M "
 
 format-background = ${colors.bgtime}
 
 label = %time%
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+time-alt = " %A, %d %B %Y "
 
 
 [module/volume]
