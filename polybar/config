@@ -37,12 +37,15 @@ module-margin-right = 0
 padding-left = 0
 padding-right = 0
 
-font-0 = Roboto Mono:pixelsize=10;1
-font-1 = RobotoMono Nerd Font:pixelsize=10;1
-font-2 = Font Awesome 5 Free:pixelsize=10;1
-font-3 = Weather Icons:size=12;1
+font-0 = Roboto Mono:pixelsize=11;1
+font-1 = RobotoMono Nerd Font:pixelsize=11;1
+font-2 = Font Awesome 5 Free:pixelsize=11;1
+font-3 = Weather Icons:size=8;1
+font-4 = ypn envypn:size=12;1
+font-5 = Misc Termsynu:size=8;1
+font-6 = Unifont:size=6;-2
 
-modules-right = cpu memory openweathermap-detailed time backlight volume
+modules-right = cpu memory time backlight volume openweathermap-detailed
 modules-center = xwindow
 modules-left = i3
 
@@ -56,15 +59,17 @@ tray-background = ${colors.bgtray}
 type = internal/date
 interval = 1
 
-time = "  %H:%M "
+time =  %H:%M
 
 format-background = ${colors.bgtime}
 
 label = %time%
+label-font = 5
+label-padding = 2
 
 ; if `date-alt` or `time-alt` is defined, clicking
 ; the module will toggle between formats
-time-alt = " %A, %d %B %Y "
+time-alt =  %A, %d. %B, %Y
 
 
 [module/volume]
@@ -78,8 +83,10 @@ ramp-volume-1 = " "
 ramp-volume-2 = " "
 
 label-volume = "%percentage%% "
-label-muted = "  %percentage%% "
+label-muted = " %percentage%% "
 label-muted-foreground = ${colors.bgi3f}
+label-volume-font = 5
+label-muted-font = 5
 
 format-volume-background = ${colors.bgcoreinfo}
 format-muted-background = ${colors.bgcoreinfo}
@@ -92,23 +99,71 @@ label-foreground = ${colors.bgi3f}
 
 [module/cpu]
 type = internal/cpu
-interval = 2
-label = "%percentage%% "
-format-prefix = "  "
-format-background = ${colors.bgcpu}
+interval = 0.5
+
+format = <label> <ramp-coreload>
+format-background = #66cc99
+format-foreground = #2a5c45
+format-underline = #60eaa5
+format-overline = #60eaa5
+format-padding = 2
+
+label = cpu
+label-font = 5
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 7
+ramp-coreload-0-foreground = #000000
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 7
+ramp-coreload-1-foreground = #000000
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 7
+ramp-coreload-2-foreground = #000000
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 7
+ramp-coreload-3-foreground = #000000
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 7
+ramp-coreload-4-foreground = #ffffff
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 7
+ramp-coreload-5-foreground = #ffffff
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 7
+ramp-coreload-6-foreground = #ff3b51
+ramp-coreload-7 = █
+ramp-coreload-7-font = 7
+ramp-coreload-7-foreground = #ff3b51
 
 [module/memory]
 type = internal/memory
-interval = 2
-label = "%percentage_used%% "
-format-prefix = "  "
+
+format = <label> <bar-used>
+format-padding = 2
 format-background = ${colors.bgmem}
+
+format-underline = #e58de6
+format-overline = #e58de6
+
+label = memory
+label-font = 5
+
+bar-used-width = 10
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #934e94
 
 [module/openweathermap-detailed]
 type = custom/script
 exec = ~/.config/polybar/openweathermap-detailed.sh
 interval = 600
 label-font = 4
+label-padding = 2
 label-background = ${colors.weather} 
 
 [module/i3]
