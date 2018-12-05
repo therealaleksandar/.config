@@ -73,7 +73,7 @@ bindsym $mod+w exec chromium
 bindsym $mod+e exec pcmanfm
 bindsym $mod+Shift+e exec gksu pcmanfm
 bindsym $mod+s exec pamac-manager
-bindsym $mod+c exec MellowPlayer
+bindsym $mod+c exec code-oss
 bindsym $mod+i exec terminal -e htop
 bindsym $mod+F1 exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
 
@@ -177,13 +177,13 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 # exit i3 (logs you out of your X session)
-bindsym $mod+Escape exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Caps_lock exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
+bindsym $mod+9 exec --no-startup-id dm-tool lock
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -241,8 +241,10 @@ set $ws8 8
 
 # Open applications on specific workspaces
 assign [class="Atom"] $ws1
+assign [class="code-oss"] $ws1
 assign [class="Subl3"] $ws1
 assign [class="Chromium"] $ws2
+assign [class="qutebrowser"] $ws2
 assign [class="Pcmanfm"] $ws3
 assign [class="calibre"] $ws4
 assign [class="MellowPlayer"] $ws8
@@ -274,7 +276,6 @@ for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
-for_window [class="URxvt"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -329,6 +330,12 @@ exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+# swap caps lock and escape
+exec_always --no-startup-id xmodmap -e "clear lock"
+exec_always --no-startup-id xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
+exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+
 
 exec --no-startup-id xflux -l 44.7866 -g 20.4489
 
@@ -393,7 +400,7 @@ set $maiafg 		 #08604F
 # class                 border		backgr.		text		indic.		child_border
 client.focused          $maia		$maia		#FFFFFF		$maia		$maia
 client.focused_inactive #222222		#5F676A		#FFFFFF		#5F676A		#5F676A
-client.unfocused        $maiafg		$maiafg		#888888		$maiafg		$maiafg
+client.unfocused        $maia		$maiafg		#888888		$maiafg		$maiafg
 client.urgent           #222222		#900000		#FFFFFF		#900000		#222222
 client.placeholder      #000000		#0C0C0C		#FFFFFF		#0C0C0C		#000000
 

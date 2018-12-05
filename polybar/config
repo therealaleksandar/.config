@@ -2,7 +2,7 @@
 fg = #222222
 fgcpu = #696969
 bgtime = #dba0bb
-bgcoreinfo = #b7c993
+bgcoreinfo = #dc7633
 bgmem = #766FFF
 bgi3 = #a78371
 bgi3f = #c9a593
@@ -41,11 +41,11 @@ font-0 = Roboto Mono:pixelsize=11;1
 font-1 = RobotoMono Nerd Font:pixelsize=11;1
 font-2 = Font Awesome 5 Free:pixelsize=11;1
 font-3 = Weather Icons:size=8;1
-font-4 = ypn envypn:size=12;1
+font-4 = ypn envypn:size=14;1
 font-5 = Misc Termsynu:size=8;1
 font-6 = Unifont:size=6;-2
 
-modules-right = cpu memory time backlight volume openweathermap-detailed
+modules-right = cpu memory openweathermap-detailed time backlight volume 
 modules-center = xwindow
 modules-left = i3
 
@@ -156,7 +156,7 @@ bar-used-fill = ─
 bar-used-fill-font = 6
 bar-used-empty = ─
 bar-used-empty-font = 6
-bar-used-empty-foreground = #934e94
+bar-used-empty-foreground = ${colors.white}
 
 [module/openweathermap-detailed]
 type = custom/script
@@ -171,14 +171,14 @@ type = internal/i3
 format = <label-state> <label-mode>
 pin-workspaces=true
 
-ws-icon-0 = 1;1 
-ws-icon-1 = 2;2 
-ws-icon-2 = 3;3 
+ws-icon-0 = 1;1: 
+ws-icon-1 = 2;2: 
+ws-icon-2 = 3;3: 
 ws-icon-3 = 4;4
 ws-icon-4 = 5;5
 ws-icon-5 = 6;6
 ws-icon-6 = 7;7
-ws-icon-7 = 8;8 
+ws-icon-7 = 8;8: 
 ws-icon-default = +
 
 label-mode-padding = 0
