@@ -33,8 +33,8 @@ bindsym $mod+Return exec terminal
 bindsym $mod+q kill
 
 # start program launcher
-#bindsym $mod+d exec --no-startup-id dmenu_recency
-bindsym $mod+d exec rofi -show drun -lines 4 -font "System San Francisco Display 18" -a X
+bindsym $mod+d exec --no-startup-id dmenu_run -h 40 -l 6 -fn "System San Francisco Display 18" -sb '$maia' 
+#bindsym $mod+d exec rofi -show drun -lines 4 -font "System San Francisco Display 18" -a X
 
 # launch categorized menu
 #bindsym $mod+z exec --no-startup-id morc_menu
@@ -47,7 +47,6 @@ bindsym $mod+d exec rofi -show drun -lines 4 -font "System San Francisco Display
 bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 #exec --no-startup-id pulseaudio
 #exec --no-startup-id pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
 
 set $volumelevel $(amixer get Master | awk '$0~/%/{print $4}' | tr -d '[]')
 
@@ -70,8 +69,8 @@ bindsym $mod+F10 exec --no-startup-id "amixer -q sset Master toggle"
 
 bindsym $mod+a exec atom
 bindsym $mod+w exec chromium
-bindsym $mod+e exec pcmanfm
-bindsym $mod+Shift+e exec gksu pcmanfm
+bindsym $mod+e exec terminal -e ranger
+bindsym $mod+m exec terminal -e cmus
 bindsym $mod+s exec pamac-manager
 bindsym $mod+c exec code-oss
 bindsym $mod+i exec terminal -e htop
@@ -167,9 +166,6 @@ bindsym $mod+Ctrl+Left workspace prev
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
 
-# hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
@@ -179,11 +175,14 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Caps_lock exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+# Set logout
+bindsym $mod+Escape exec i3exit logout
+
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id dm-tool lock
+# bindsym $mod+9 exec --no-startup-id dm-tool lock
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -217,7 +216,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
 # Restart polybar
 bindsym $mod+Shift+p exec --no-startup-id "killall polybar"
-bindsym $mod+Ctrl+p exec --no-startup-id "polybar top"
+bindsym $mod+Ctrl+p exec --no-startup-id "polybar example"
 
 # Workspace names
 # to display names or symbols instead of plain workspace numbers you can use
@@ -244,10 +243,13 @@ assign [class="Atom"] $ws1
 assign [class="code-oss"] $ws1
 assign [class="Subl3"] $ws1
 assign [class="Chromium"] $ws2
+assign [class="Firefox Developer Edition"] $ws2
 assign [class="qutebrowser"] $ws2
 assign [class="Pcmanfm"] $ws3
 assign [class="calibre"] $ws4
 assign [class="MellowPlayer"] $ws8
+assign [title="cmus"] $ws8
+assign [title="ranger"] $ws3
 
 # Open specific applications in floating mode
 for_window [title="alsamixer"] floating enable border pixel 1
@@ -276,6 +278,7 @@ for_window [class="Skype"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
+for_window [class="Tor Browser"] floating enable
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -326,6 +329,9 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id clipit
+exec --no-startup-id xflux -l 44.7866 -g 20.4489
+
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 
@@ -335,9 +341,6 @@ exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id xmodmap -e "clear lock"
 exec_always --no-startup-id xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
 exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
-
-
-exec --no-startup-id xflux -l 44.7866 -g 20.4489
 
 # moje aplikacije
 #exec --no-startup-id chromium
@@ -400,7 +403,7 @@ set $maiafg 		 #08604F
 # class                 border		backgr.		text		indic.		child_border
 client.focused          $maia		$maia		#FFFFFF		$maia		$maia
 client.focused_inactive #222222		#5F676A		#FFFFFF		#5F676A		#5F676A
-client.unfocused        $maia		$maiafg		#888888		$maiafg		$maiafg
+client.unfocused        $maia		$maiafg		#888888		$maia		$maiafg
 client.urgent           #222222		#900000		#FFFFFF		#900000		#222222
 client.placeholder      #000000		#0C0C0C		#FFFFFF		#0C0C0C		#000000
 
@@ -420,7 +423,7 @@ gaps outer 1
 # gaps outer all plus 5
 
 # Smart gaps (gaps used if only more than one container on the workspace)
-smart_gaps on
+#smart_gaps on
 
 # Smart borders (draw borders around container only if it is not the only container on this workspace)
 # on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
